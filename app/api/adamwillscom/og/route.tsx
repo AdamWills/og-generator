@@ -7,7 +7,7 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
 
     const fontData = await fetch(
-      new URL("../../../assets/SF-Pro-Display-Black.otf", import.meta.url)
+      new URL("../../../assets/sf-pro-black.ttf", import.meta.url)
     ).then((res) => res.arrayBuffer());
 
     const title = searchParams.has("title")
