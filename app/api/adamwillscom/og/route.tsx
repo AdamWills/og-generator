@@ -21,7 +21,7 @@ export async function GET(request: Request) {
     return new ImageResponse(
       (
         <div
-          tw="flex flex-col justify-center items-center text-center w-full h-full text-[192px] tracking-tighter uppercase font-black leading-[0.8]"
+          tw="flex flex-col justify-center items-center text-center w-full h-full line-clamp-3 text-[192px] tracking-tighter uppercase font-black leading-[0.8]"
           style={{
             fontFamily: "SF-Pro",
           }}
