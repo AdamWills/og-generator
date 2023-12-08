@@ -2,6 +2,16 @@ import { ImageResponse } from "next/og";
 
 export const runtime = "edge";
 
+const getTextSize = (text: string) => {
+  if (text.length < 30) {
+    return "text-[164px]";
+  }
+  if (text.length < 50) {
+    return "text-[128px]";
+  }
+  return "text-[96px]";
+};
+
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -11,19 +21,23 @@ export async function GET(request: Request) {
     ).then((res) => res.arrayBuffer());
 
     const title = searchParams.has("title")
-      ? searchParams.get("title")?.slice(0, 100)
+      ? searchParams.get("title")?.slice(0, 100) ?? "Default Title"
       : "My default title";
 
     const subTitle = searchParams.has("subtitle")
       ? searchParams.get("subtitle")?.slice(0, 100)
       : "";
 
+    const textSize = getTextSize(title);
+
     return new ImageResponse(
       (
         <div
-          tw="flex flex-col justify-center items-center text-center w-full h-full line-clamp-3 text-[192px] tracking-tighter uppercase font-black leading-[0.8]"
+          tw={`${textSize} bg-white flex flex-col justify-center items-center text-center w-full h-full tracking-tighter uppercase font-black leading-[0.8]`}
           style={{
             fontFamily: "SF-Pro",
+            lineClamp: 3,
+            padding: "0 32px",
           }}
         >
           <div tw="text-6xl tracking-tight leading-normal">{subTitle}</div>
